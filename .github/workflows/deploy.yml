@@ -1,0 +1,63 @@
+name: Deploy to Froggy
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build_site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # TODO: everything is in dev dependencies
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build webpage
+        run: pnpm run build
+
+      - name: Compress built app
+        run: |
+          tar czvf page.tar.gz build
+
+      - name: Create a release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$(date '+%Y%m%d%H%M%S')" \
+              --repo=mlodybercik/dev.bercik.xyz \
+              --title="Release $(date '+%Y%m%d %H%M%S')" \
+              --generate-notes \
+              page.tar.gz scripts/setup.sh
+
+  poke_froggy:
+    needs: build_site
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into remote
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          # this seems kinda weird, but I want it to work for both private repositories and public ones
+          # I have to have some kind of "bootstrapping" in case of anything breaks
+          script: |
+            source ~/secrets/variables && \
+            gh release download --repo=mlodybercik/dev.bercik.xyz -p 'setup.sh' -p 'page.tar.gz' --clobber && \
+            chmod +x setup.sh && \
+            ./setup.sh

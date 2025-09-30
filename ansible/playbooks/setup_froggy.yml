@@ -1,0 +1,64 @@
+---
+- name: Setup froggy
+  hosts: default
+
+  tasks:
+    - name: Install required packages
+      become: true
+
+      community.general.apk:
+        name:
+          - nginx
+          - certbot
+          - certbot-nginx
+        state: latest
+        update_cache: true
+
+    - name: Secrets directory present
+      ansible.builtin.file:
+        path: ~/secrets
+        state: directory
+        mode: '700'
+
+    - name: Variables file present
+      ansible.builtin.file:
+        path: ~/secrets/variables
+        state: touch
+        mode: '600'
+
+    - name: Github key in secrets
+      ansible.builtin.lineinfile:
+        path: ~/secrets/variables
+        line: 'export GITHUB_TOKEN={{ GITHUB_TOKEN }}'
+        state: present
+
+    - name: Copy nginx config
+      become: true
+      ansible.builtin.copy:
+        src: ../../scripts/bercik.conf
+        dest: /etc/nginx/http.d/bercik.conf
+        mode: '644'
+
+    - name: Remove default config
+      become: true
+      ansible.builtin.file:
+        path: /etc/nginx/http.d/default.conf
+        state: absent
+
+    - name: Run certbot Setup
+      vars:
+        certbot_auto_renew: true
+        certbot_create_if_missing: true
+        certbot_create_method: nginx
+        certbot_admin_email: '{{ EMAIL }}'
+
+      ansible.builtin.include_role:
+        name: geerlingguy.certbot
+
+    - name: Nginx is running
+      become: true
+
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        enabled: true
