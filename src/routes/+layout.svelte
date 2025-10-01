@@ -13,9 +13,9 @@
 
 <div class="flex min-h-screen w-full justify-center">
 	<div class="flex w-95 flex-col md:w-xl lg:w-4xl">
-		<header>
+		<header class="pt-1 pb-3">
 			<div class="flex justify-center">
-				<nav class="py-2">
+				<nav>
 					<a class="px-2" href="/" aria-current={page.url.pathname === '/'}>whoami</a>
 					<a class="px-2" href="/projects" aria-current={page.url.pathname === '/projects'}>Projects</a>
 					<a class="px-2" href="/hire" aria-current={page.url.pathname === '/hire'}>Hire me</a>
@@ -25,8 +25,10 @@
 		<main class="grow">
 			{@render children?.()}
 		</main>
-		<footer class="grey-100 mt-1 text-xs font-thin">
-			Seen an issue? Submit it <a href="https://github.com/mlodybercik/dev.bercik.xyz">here</a>
+		<footer class="pt-5 text-xs font-thin">
+			<p class="text-gray-300">
+				Seen an issue? Submit it <a href="https://github.com/mlodybercik/dev.bercik.xyz">here</a>
+			</p>
 		</footer>
 	</div>
 </div>

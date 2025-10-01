@@ -13,7 +13,7 @@
 		'bg-purple-500',
 		'bg-teal-500',
 		'bg-gray-200',
-		'bg-gray-200', // dummy
+		'bg-gray-200',
 
 		// second row
 		'bg-gray-800',
@@ -31,9 +31,9 @@
 	<div class="h-4 w-8 {color} float-left"></div>
 {/snippet}
 
-<div class="flex h-full flex-col items-center justify-center py-5">
+<div class="flex h-full flex-col items-center justify-center">
 	<div>
-		<p class="pb-3" aria-hidden="true">
+		<p class="pb-1" aria-hidden="true">
 			<span class="g">dev.bercik.xyz@froggy</span> <span class="b">~ $</span> neofetch
 		</p>
 		<div class="flex flex-col lg:flex-row">
@@ -73,12 +73,10 @@ o######################################o
 					<!-- TODO: change this -->
 					<li><span class="r">Status:</span> <span class="font-bold">Unemployed</span></li>
 				</ul>
-				<div class="w-full pt-2">
-					<p>
-						{#each stripes as color}
-							{@render block(color)}
-						{/each}
-					</p>
+				<div class="break-on-7 w-full pt-2">
+					{#each stripes as color}
+						{@render block(color)}
+					{/each}
 				</div>
 			</div>
 		</div>
@@ -105,7 +103,7 @@ o######################################o
 		color: var(--color-blue-500);
 	}
 
-	p > div:nth-child(9) {
+	.break-on-7 > div:nth-child(9) {
 		float: none;
 	}
 
