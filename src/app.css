@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+
+* {
+	font-family: 'JetBrains Mono', monospace;
+	color: white;
+}
+
+body {
+	background-color: #070707;
+}
