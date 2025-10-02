@@ -3,7 +3,8 @@
 	import projects from '$lib/projects';
 </script>
 
-<div class="flex flex-col items-center justify-center">
-	<ProjectCard project={projects[0]} />
-	<ProjectCard project={projects[1]} />
+<div class="flex flex-col items-center gap-8">
+	{#each projects as project}
+		<ProjectCard {project} />
+	{/each}
 </div>

@@ -2,6 +2,8 @@ import type { Component } from 'svelte';
 import type { SVGAttributes } from 'svelte/elements';
 import DeviconPlainAmazonwebservices from '~icons/devicon-plain/amazonwebservices';
 import DeviconPlainDocker from '~icons/devicon-plain/docker';
+import DeviconPlainElasticsearch from '~icons/devicon-plain/elasticsearch';
+import DeviconPlainJavascript from '~icons/devicon-plain/javascript';
 import DeviconPlainJest from '~icons/devicon-plain/jest';
 import DeviconPlainJunit from '~icons/devicon-plain/junit';
 import DeviconPlainKubernetes from '~icons/devicon-plain/kubernetes';
@@ -10,17 +12,24 @@ import DeviconPlainNumpy from '~icons/devicon-plain/numpy';
 import DeviconPlainOpenapi from '~icons/devicon-plain/openapi';
 import DeviconPlainPostgresql from '~icons/devicon-plain/postgresql';
 import DeviconPlainSpring from '~icons/devicon-plain/spring';
+import DeviconPlainSvelte from '~icons/devicon-plain/svelte';
 import DeviconPlainTerraform from '~icons/devicon-plain/terraform';
 import DeviconPlainTypescript from '~icons/devicon-plain/typescript';
+import MdiHammer from '~icons/mdi/hammer';
+import SimpleIconsAnsible from '~icons/simple-icons/ansible';
+import SimpleIconsFastapi from '~icons/simple-icons/fastapi';
 import SimpleIconsFigma from '~icons/simple-icons/figma';
 import SimpleIconsFlask from '~icons/simple-icons/flask';
 import SimpleIconsGithub from '~icons/simple-icons/github';
 import SimpleIconsGithubactions from '~icons/simple-icons/githubactions';
 import SimpleIconsGunicorn from '~icons/simple-icons/gunicorn';
+import SimpleIconsHtml5 from '~icons/simple-icons/html5';
 import SimpleIconsJupyter from '~icons/simple-icons/jupyter';
+import SimpleIconsNginx from '~icons/simple-icons/nginx';
 import SimpleIconsOpenjdk from '~icons/simple-icons/openjdk';
 import SimpleIconsPrecommit from '~icons/simple-icons/precommit';
 import SimpleIconsPython from '~icons/simple-icons/python';
+import SimpleIconsTailwindcss from '~icons/simple-icons/tailwindcss';
 import SimpleIconsTensorflow from '~icons/simple-icons/tensorflow';
 import SimpleIconsUml from '~icons/simple-icons/uml';
 
@@ -28,6 +37,7 @@ export type Project = {
 	name: string;
 	description: string;
 	image: string;
+	type?: 'Academic' | 'Private' | 'Deprecated';
 	urls: { name: string; url: string }[];
 	badges: { name: string; icons: { name: string; icon: Component<SVGAttributes<SVGSVGElement>> }[] }[];
 };
@@ -35,13 +45,14 @@ export type Project = {
 const projects: Project[] = [
 	{
 		name: 'JakPrzyjade',
+		type: 'Academic',
 		description:
 			'Microservice-based public transit system implemented as a proof-of-knowledge project for Software System' +
 			' Design course at Wrocław Univeristy of Applied Science. App consists of four services and a single' +
 			' sidecart that handle multiple aspects of public transport ticketing, such as buying tickets, validating' +
 			' them, checking stops and lines, and also reporting accidents.',
 		image:
-			'https://raw.githubusercontent.com/PWR-ACS-SE-24/SoftwareSystemDesign/refs/heads/main/documentation/course/e2/images/deployment-diagram.drawio.svg',
+			'https://github.com/PWR-ACS-SE-24/SoftwareSystemDesign/blob/main/documentation/course/e1/images/Stop1.png?raw=true',
 
 		urls: [
 			{
@@ -84,9 +95,9 @@ const projects: Project[] = [
 			}
 		]
 	},
-
 	{
 		name: 'workflow-predictor',
+		type: 'Academic',
 		description:
 			'Machine learning based service for predicting execution times for a certain node or nodes in directed' +
 			' acyclic graph of dependent tasks. App consists of model creation and verification part and also Flask' +
@@ -114,7 +125,8 @@ const projects: Project[] = [
 					{ name: 'Flask', icon: SimpleIconsFlask },
 					{ name: 'Tensorflow', icon: SimpleIconsTensorflow },
 					{ name: 'Numpy', icon: DeviconPlainNumpy },
-					{ name: 'Gunicorn', icon: SimpleIconsGunicorn }
+					{ name: 'Gunicorn', icon: SimpleIconsGunicorn },
+					{ name: 'Docker', icon: DeviconPlainDocker }
 				]
 			},
 			{
@@ -123,6 +135,146 @@ const projects: Project[] = [
 					{ name: 'Notebooks', icon: SimpleIconsJupyter },
 					{ name: 'GitHub', icon: SimpleIconsGithub },
 					{ name: 'pre-commit', icon: SimpleIconsPrecommit }
+				]
+			}
+		]
+	},
+	{
+		name: 'dev.bercik.xyz',
+		type: 'Private',
+		description:
+			'Simple HTML5 webpage made in SvelteKit to showcase some projects made by me. Page is hosted raw on' +
+			' mikr.us and maintained by Ansible and GitHub Actions scripts. Nginx serves a page which is being' +
+			' forwarded by Cloudflare via IPv6 proxy. VPS it is being held on has 256MB of RAM.',
+		image: '/dev.bercik.xyz.webp',
+
+		urls: [
+			{
+				name: 'Repository',
+				url: 'https://github.com/mlodybercik/dev.bercik.xyz'
+			}
+		],
+
+		badges: [
+			{
+				name: 'Solutions',
+				icons: [
+					{ name: 'Typescript', icon: DeviconPlainTypescript },
+					{ name: 'SvelteKit', icon: DeviconPlainSvelte },
+					{ name: 'Bare metal', icon: MdiHammer },
+					{ name: 'HTML', icon: SimpleIconsHtml5 },
+					{ name: 'Tailwind CSS', icon: SimpleIconsTailwindcss },
+					{ name: 'nginx', icon: SimpleIconsNginx }
+				]
+			},
+			{
+				name: 'Tools',
+				icons: [
+					{ name: 'Ansible', icon: SimpleIconsAnsible },
+					{ name: 'GitHub', icon: SimpleIconsGithub },
+					{ name: 'GitHub Actions', icon: SimpleIconsGithubactions }
+				]
+			}
+		]
+	},
+	{
+		name: 'ArXiv search',
+		type: 'Academic',
+		description:
+			'Database and Elasticsearch based system for searching scientific papers from open-access repository' +
+			' arXiv. It allows for searching based on article’s name, authors, category and published date. Project' +
+			' consists of FastAPI, Elasticsearch repository, SQL database and frontend made in Svelte. Implemented' +
+			' for Information Retrieval Systems course at Wrocław Univeristy of Applied Science.',
+		image: 'https://github.com/PWR-ACS-SE-24/InformationRetrievalSystems/blob/main/docs/img/main-page.png?raw=true',
+
+		urls: [
+			{
+				name: 'Repository',
+				url: 'https://github.com/PWR-ACS-SE-24/InformationRetrievalSystems/'
+			}
+		],
+
+		badges: [
+			{
+				name: 'Implementation',
+				icons: [
+					{ name: 'Typescript', icon: DeviconPlainTypescript },
+					{ name: 'SvelteKit', icon: DeviconPlainSvelte },
+					{ name: 'HTML', icon: SimpleIconsHtml5 },
+					{ name: 'Tailwind CSS', icon: SimpleIconsTailwindcss },
+					{ name: 'Python', icon: SimpleIconsPython },
+					{ name: 'FastAPI', icon: SimpleIconsFastapi },
+					{ name: 'Elasticsearch', icon: DeviconPlainElasticsearch },
+					{ name: 'PostgreSQL', icon: DeviconPlainPostgresql }
+				]
+			},
+			{
+				name: 'Tools',
+				icons: [
+					{ name: 'GitHub', icon: SimpleIconsGithub },
+					{ name: 'Docker', icon: DeviconPlainDocker }
+				]
+			}
+		]
+	},
+
+	{
+		name: 'tekstowo',
+		type: 'Deprecated',
+		description:
+			'Small and old library for parsing and downloading data from polish website about song lyrics and its' +
+			' translations with the same name. Library was made as my first bigger project. It used beautifulsoup to ' +
+			' scrap data from the Web, tidy it up and present results as objects.',
+		image: 'https://raw.githubusercontent.com/krzesu0/tekstowo/dev/misc/py.png',
+
+		urls: [
+			{
+				name: 'Repository',
+				url: 'https://github.com/mlodybercik/tekstowo'
+			}
+		],
+
+		badges: [
+			{
+				name: 'Scraping with',
+				icons: [
+					{ name: 'Python', icon: SimpleIconsPython },
+					{ name: 'Beautifulsoup', icon: SimpleIconsPython },
+					{ name: 'Requests', icon: SimpleIconsPython },
+					{ name: 'HTML', icon: SimpleIconsHtml5 }
+				]
+			}
+		]
+	},
+
+	{
+		name: 'betterplan + bercikAPI',
+		type: 'Deprecated',
+		description:
+			'Once upon a time, back in the middleschool times I had an somewhat weird problem of not being able to ' +
+			" see what rooms were occupied by what teacher at what times. I've made a project that would parse" +
+			' schedules provided by school and would generate occupancy timetables for every room. To present the' +
+			" data to users I've also made a page that would dynamically show every plan any user requested. Frontend" +
+			' does not use any library. Everything was raw and written by hand.',
+		image: '/bercik.tk.webp',
+
+		urls: [],
+
+		badges: [
+			{
+				name: 'Backend made with',
+				icons: [
+					{ name: 'Python', icon: SimpleIconsPython },
+					{ name: 'Flask', icon: SimpleIconsFlask },
+					{ name: 'Beautifulsoup', icon: SimpleIconsPython },
+					{ name: 'Requests', icon: SimpleIconsPython }
+				]
+			},
+			{
+				name: 'Website made with',
+				icons: [
+					{ name: 'HTML', icon: SimpleIconsHtml5 },
+					{ name: 'Javascript', icon: DeviconPlainJavascript }
 				]
 			}
 		]

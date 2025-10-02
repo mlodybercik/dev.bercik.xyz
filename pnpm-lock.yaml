@@ -17,6 +17,9 @@ importers:
       '@iconify-json/devicon-plain':
         specifier: ^1.2.41
         version: 1.2.41
+      '@iconify-json/mdi':
+        specifier: ^1.2.3
+        version: 1.2.3
       '@iconify-json/simple-icons':
         specifier: ^1.2.53
         version: 1.2.53
@@ -311,6 +314,9 @@ packages:
 
   '@iconify-json/devicon-plain@1.2.41':
     resolution: {integrity: sha512-/ajjeYOlBCDoXttl6VI8Q4NHcU//MfFjb6hlsRSGbC3AoNPwEHvNBOm+/uEhDsyANzgTLLzIMSLWVMQspGXxwA==}
+
+  '@iconify-json/mdi@1.2.3':
+    resolution: {integrity: sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==}
 
   '@iconify-json/simple-icons@1.2.53':
     resolution: {integrity: sha512-8GEW5mshsPAZpVAJmkBG/niR2qn8t4U03Wmz6aSD9R4VMZKTECqbOxH3z4inA0JfZOoTvP4qoK9T2VXAx2Xg5g==}
@@ -1695,6 +1701,10 @@ snapshots:
   '@humanwhocodes/retry@0.4.3': {}
 
   '@iconify-json/devicon-plain@1.2.41':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/mdi@1.2.3':
     dependencies:
       '@iconify/types': 2.0.0
 

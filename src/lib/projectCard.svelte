@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Badge from './badge.svelte';
 	import type { Project } from './projects';
+	import Ribbon from './ribbon.svelte';
 
 	const { project }: { project: Project } = $props();
 	const buttons = [...project.urls, { name: 'See more', url: `/projects/${project.name.toLowerCase()}` }];
@@ -8,14 +9,19 @@
 
 <!-- md:w-xl lg:w-4xl -->
 {#snippet urlButton({ url, name }: { url: string; name: string })}
-	<a href={url}><span class="m-1 rounded-md bg-black-600 p-2 text-lg font-bold">{name}</span></a>
+	<a href={url}
+		><div class="text-normal m-1 rounded-md bg-white p-1 font-normal whitespace-nowrap text-black">{name}</div></a
+	>
 {/snippet}
 
-<article class="float-left mb-10 rounded-lg bg-black font-light ring ring-black-600 lg:w-3/5">
-	<header class="h-30 lg:h-60">
-		<img src={project.image} class="rounded-t-lg" alt="Project overview" />
+<article class="relative w-7/9 overflow-hidden rounded-lg bg-black font-light ring ring-black-600">
+	{#if !!project.type}
+		<Ribbon text={project.type} />
+	{/if}
+	<header class="h-30">
+		<img src={project.image} class="relative rounded-t-lg object-contain" alt="Project overview" />
 	</header>
-	<main class="clip relative rounded-b-lg bg-black-950 p-5 font-normal">
+	<main class="clip relative rounded-b-lg bg-black-950 p-6 pb-2 font-normal">
 		<h1 class="mb-2 text-2xl font-bold text-shadow-black text-shadow-lg lg:text-3xl">{project.name}</h1>
 		<p class="text-justify">{project.description}</p>
 		{#each project.badges as areas}
@@ -24,11 +30,11 @@
 				<Badge {badge} />
 			{/each}
 		{/each}
-		<p class="mt-4 text-center">
+		<div class="mt-1 flex flex-row flex-wrap justify-end">
 			{#each buttons as urlInfo}
 				{@render urlButton(urlInfo)}
 			{/each}
-		</p>
+		</div>
 	</main>
 </article>
 
