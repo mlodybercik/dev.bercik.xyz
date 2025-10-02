@@ -14,11 +14,11 @@
 <div class="flex min-h-screen w-full justify-center">
 	<div class="flex w-95 flex-col md:w-xl lg:w-4xl">
 		<header class="pt-1 pb-3">
-			<div class="flex justify-center">
+			<div class="flex justify-center text-xl font-medium">
 				<nav>
 					<a class="px-2" href="/" aria-current={page.url.pathname === '/'}>whoami</a>
-					<a class="px-2" href="/projects" aria-current={page.url.pathname === '/projects'}>Projects</a>
-					<a class="px-2" href="/hire" aria-current={page.url.pathname === '/hire'}>Hire me</a>
+					<a class="px-2" href="/projects" aria-current={page.url.pathname.startsWith('/projects')}>Projects</a>
+					<a class="px-2" href="/hire" aria-current={page.url.pathname.startsWith('/hire')}>Hire me</a>
 				</nav>
 			</div>
 		</header>
