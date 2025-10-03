@@ -37,7 +37,7 @@
 			<span class="g">dev.bercik.xyz@froggy</span> <span class="b">~ $</span> neofetch
 		</p>
 		<div class="flex flex-col lg:flex-row">
-			<pre role="img" class="icon pb-5">
+			<pre role="img" class="icon pb-5" aria-hidden="true">
             .-/+oo####oo+/-.
         `:+##################+:`
       -+########################+-
@@ -69,7 +69,7 @@ o######################################o
 					<li><span class="r">Specialization:</span> <span class="font-bold">Web Applications</span></li>
 					<li><span class="r">Education:</span> <span class="font-bold">MSc's, BSc's, Technical</span></li>
 					<li><span class="r">Languages:</span> <span class="font-bold">Python, TypeScript, Java</span></li>
-					<li><span class="r">Dream job:</span> <span class="font-bold">Backend developer</span></li>
+					<li><span class="r">Dream job:</span> <span class="font-bold">Backend DevOps</span></li>
 					<!-- TODO: change this -->
 					<li><span class="r">Status:</span> <span class="font-bold">Unemployed</span></li>
 				</ul>

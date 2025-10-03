@@ -1,5 +1,8 @@
 <script lang="ts">
-	import DeviconPlainSvelte from '~icons/devicon-plain/svelte';
+	import MdiCrane from '~icons/mdi/crane';
 </script>
 
-<DeviconPlainSvelte />
+<div class="align-center flex h-full w-full flex-row items-center justify-center">
+	<span class="text-5xl">work in progress</span>
+	<MdiCrane class="text-9xl" />
+</div>

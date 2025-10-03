@@ -15,7 +15,9 @@ import DeviconPlainSpring from '~icons/devicon-plain/spring';
 import DeviconPlainSvelte from '~icons/devicon-plain/svelte';
 import DeviconPlainTerraform from '~icons/devicon-plain/terraform';
 import DeviconPlainTypescript from '~icons/devicon-plain/typescript';
+import MdiArrowLeftThin from '~icons/mdi/arrow-left-thin';
 import MdiHammer from '~icons/mdi/hammer';
+import MdiHumanMaleBoard from '~icons/mdi/human-male-board';
 import SimpleIconsAnsible from '~icons/simple-icons/ansible';
 import SimpleIconsFastapi from '~icons/simple-icons/fastapi';
 import SimpleIconsFigma from '~icons/simple-icons/figma';
@@ -33,13 +35,15 @@ import SimpleIconsTailwindcss from '~icons/simple-icons/tailwindcss';
 import SimpleIconsTensorflow from '~icons/simple-icons/tensorflow';
 import SimpleIconsUml from '~icons/simple-icons/uml';
 
+export type Icon = Component<SVGAttributes<SVGSVGElement>>;
+
 export type Project = {
 	name: string;
 	description: string;
 	image: string;
 	type?: 'Academic' | 'Private' | 'Deprecated';
-	urls: { name: string; url: string }[];
-	badges: { name: string; icons: { name: string; icon: Component<SVGAttributes<SVGSVGElement>> }[] }[];
+	urls: { name: string; url: string; icon: Icon }[];
+	badges: { name: string; icons: { name: string; icon: Icon }[] }[];
 };
 
 const projects: Project[] = [
@@ -57,7 +61,8 @@ const projects: Project[] = [
 		urls: [
 			{
 				name: 'Repository',
-				url: 'https://github.com/PWR-ACS-SE-24/SoftwareSystemDesign'
+				url: 'https://github.com/PWR-ACS-SE-24/SoftwareSystemDesign',
+				icon: SimpleIconsGithub
 			}
 		],
 
@@ -109,11 +114,13 @@ const projects: Project[] = [
 		urls: [
 			{
 				name: 'Repository',
-				url: 'https://github.com/mlodybercik/workflow-predictor'
+				url: 'https://github.com/mlodybercik/workflow-predictor',
+				icon: SimpleIconsGithub
 			},
 			{
 				name: 'Presentation (PL)',
-				url: 'https://docs.google.com/presentation/d/e/2PACX-1vQUAM-MWpULXNabZ8_ASwfgURyAjYWDoZekuzhNts8DTr64yFveFfHx0V4qVQK-mRqFWfH01yjsi3AI/pub?start=false&loop=true&delayms=10000'
+				url: 'https://docs.google.com/presentation/d/e/2PACX-1vQUAM-MWpULXNabZ8_ASwfgURyAjYWDoZekuzhNts8DTr64yFveFfHx0V4qVQK-mRqFWfH01yjsi3AI/pub?start=false&loop=true&delayms=10000',
+				icon: MdiHumanMaleBoard
 			}
 		],
 
@@ -145,13 +152,14 @@ const projects: Project[] = [
 		description:
 			'Simple HTML5 webpage made in SvelteKit to showcase some projects made by me. Page is hosted raw on' +
 			' mikr.us and maintained by Ansible and GitHub Actions scripts. Nginx serves a page which is being' +
-			' forwarded by Cloudflare via IPv6 proxy. VPS it is being held on has 256MB of RAM.',
+			' forwarded by Cloudflare via IPv6 proxy. VPS it is being hosted on has 256MB of RAM.',
 		image: '/dev.bercik.xyz.webp',
 
 		urls: [
 			{
 				name: 'Repository',
-				url: 'https://github.com/mlodybercik/dev.bercik.xyz'
+				url: 'https://github.com/mlodybercik/dev.bercik.xyz',
+				icon: SimpleIconsGithub
 			}
 		],
 
@@ -178,6 +186,53 @@ const projects: Project[] = [
 		]
 	},
 	{
+		name: 'Image Steganography',
+		type: 'Academic',
+		description:
+			'Web-based tool for experimenting with various image steganography techniques, enabling users to hide' +
+			' data in digital images and extract it from them. Implemented mainly using TypeScript, Angular, and' +
+			' Rust, it supports methods like Least Significant Bit (LSB), Discrete Cosine Transform (DCT), wavelet' +
+			' transform, visual cryptography, and metadata manipulation for PNG and JPEG formats.',
+		image: 'https://github.com/PWR-ACS-SE-24/EoSaKAfDaD/blob/main/docs/images/vc.png?raw=true',
+
+		urls: [
+			{
+				name: 'Repository',
+				url: 'https://github.com/PWR-ACS-SE-24/EoSaKAfDaD/',
+				icon: SimpleIconsGithub
+			},
+			{
+				name: 'Demo (PL)',
+				url: 'https://pwr-acs-se-24.github.io/EoSaKAfDaD/',
+				icon: MdiArrowLeftThin
+			}
+		],
+
+		badges: [
+			{
+				name: 'Implementation',
+				icons: [
+					{ name: 'Typescript', icon: DeviconPlainTypescript },
+					{ name: 'SvelteKit', icon: DeviconPlainSvelte },
+					{ name: 'HTML', icon: SimpleIconsHtml5 },
+					{ name: 'Tailwind CSS', icon: SimpleIconsTailwindcss },
+					{ name: 'Python', icon: SimpleIconsPython },
+					{ name: 'FastAPI', icon: SimpleIconsFastapi },
+					{ name: 'Elasticsearch', icon: DeviconPlainElasticsearch },
+					{ name: 'PostgreSQL', icon: DeviconPlainPostgresql }
+				]
+			},
+			{
+				name: 'Tools',
+				icons: [
+					{ name: 'GitHub', icon: SimpleIconsGithub },
+					{ name: 'Docker', icon: DeviconPlainDocker }
+				]
+			}
+		]
+	},
+
+	{
 		name: 'ArXiv search',
 		type: 'Academic',
 		description:
@@ -190,7 +245,8 @@ const projects: Project[] = [
 		urls: [
 			{
 				name: 'Repository',
-				url: 'https://github.com/PWR-ACS-SE-24/InformationRetrievalSystems/'
+				url: 'https://github.com/PWR-ACS-SE-24/InformationRetrievalSystems/',
+				icon: SimpleIconsGithub
 			}
 		],
 
@@ -230,7 +286,8 @@ const projects: Project[] = [
 		urls: [
 			{
 				name: 'Repository',
-				url: 'https://github.com/mlodybercik/tekstowo'
+				url: 'https://github.com/mlodybercik/tekstowo',
+				icon: SimpleIconsGithub
 			}
 		],
 

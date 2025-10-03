@@ -1,14 +1,14 @@
 <script lang="ts">
 	const { text }: { text: 'Academic' | 'Private' | 'Deprecated' } = $props();
-	const colors = {
-		Private: '--color-red-800',
-		Academic: '--color-green-800',
-		Deprecated: '--color-yellow-800'
-	};
+	const color = {
+		Private: { style: '--color-red-800', description: 'Private project' },
+		Academic: { style: '--color-green-800', description: 'Made while in school/university' },
+		Deprecated: { style: '--color-yellow-800', description: 'Old and unmaintained project' }
+	}[text];
 </script>
 
-<div class="ribbon transform-bottom-right font-bold" style:background-color={`var(${colors[text]})`}>
-	{text}
+<div class="ribbon transform-bottom-right font-bold" style:background-color={`var(${color.style})`}>
+	<span title={color.description}>{text}</span>
 </div>
 
 <style>
