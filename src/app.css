@@ -22,3 +22,19 @@ body {
 	background-color: var(--color-black-900);
 	color: var(--color-white);
 }
+
+html {
+	/* overflow-x: hidden; */
+}
+
+.g {
+	color: var(--color-green-500);
+}
+
+.r {
+	color: var(--color-red-400);
+}
+
+.b {
+	color: var(--color-blue-500);
+}

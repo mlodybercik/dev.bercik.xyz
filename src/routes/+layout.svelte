@@ -11,8 +11,8 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="flex min-h-screen w-full justify-center">
-	<div class="flex w-19/20 flex-col lg:w-4xl">
+<div class="flex min-h-screen w-full max-w-full justify-center">
+	<div class="lg:w-max-4xl flex w-full flex-col lg:w-4xl">
 		<header class="pt-1 pb-3">
 			<div class="flex justify-center text-xl font-medium">
 				<nav>
