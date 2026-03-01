@@ -5,12 +5,9 @@
   tasks:
     - name: Install required packages
       become: true
-
       community.general.apk:
         name:
           - nginx
-          - certbot
-          - certbot-nginx
         state: latest
         update_cache: true
 
@@ -36,28 +33,26 @@
       become: true
       ansible.builtin.copy:
         src: ../../scripts/bercik.conf
-        dest: /etc/nginx/http.d/bercik.conf
-        mode: '644'
+        dest: /etc/nginx/nginx.conf
+        mode: '0644'
 
-    - name: Remove default config
+    - name: Make sure cert directories are present
       become: true
       ansible.builtin.file:
-        path: /etc/nginx/http.d/default.conf
-        state: absent
+        path: /etc/certs/bercik.xyz/
+        state: directory
+        owner: 1000
+        mode: '0700'
 
-    - name: Run certbot Setup
-      vars:
-        certbot_auto_renew: true
-        certbot_create_if_missing: true
-        certbot_create_method: nginx
-        certbot_admin_email: '{{ EMAIL }}'
-
-      ansible.builtin.include_role:
-        name: geerlingguy.certbot
+    - name: Keep d-h parameters file in certs
+      become: true
+      ansible.builtin.get_url:
+        url: https://ssl-config.mozilla.org/ffdhe2048.txt
+        dest: /etc/certs/dhparam
+        mode: '0644'
 
     - name: Nginx is running
       become: true
-
       ansible.builtin.service:
         name: nginx
         state: restarted
