@@ -1,7 +1,28 @@
 <script lang="ts">
-	const uptime = new Date(new Date().valueOf() - new Date(2000, 11, 27).valueOf());
-	const years = uptime.getFullYear() - 1970;
-	const months = uptime.getMonth() ? `${uptime.getMonth()} months` : '';
+	const getTimeUnit = function (singularUnit: string, value: number): string {
+		if (value == 0) return '';
+		if (value == 1) return `1 ${singularUnit}`;
+		return `${value} ${singularUnit}s`;
+	};
+	const formatTime = function (date: Date): string {
+		const years = getTimeUnit('year', date.getFullYear() - 1970);
+		const months = getTimeUnit('month', date.getMonth());
+		if (years && months) {
+			return `${years}, ${months}`;
+		} else if (years) {
+			return years;
+		} else {
+			return months;
+		}
+	};
+
+	const now = new Date().valueOf();
+
+	const rawUptime = new Date(now - new Date(2000, 11, 27).valueOf());
+	const rawEmployed = new Date(now - new Date(2025, 12, 1).valueOf());
+
+	const uptime = formatTime(rawUptime);
+	const employed = formatTime(rawEmployed);
 
 	const stripes = [
 		// first row
@@ -37,41 +58,46 @@
 			<span class="g">dev.bercik.xyz@froggy</span> <span class="b">~ $</span> neofetch
 		</p>
 		<div class="flex flex-col lg:flex-row">
-			<pre role="img" class="icon pb-5" aria-hidden="true">
-            .-/+oo####oo+/-.
+			<pre role="img" class="icon" aria-hidden="true">
+            .-/+oo####oo+\-.
         `:+##################+:`
       -+########################+-
     .o############################o.
-   /################################/
+   /################################\
   +##################################+
- /####################################/
+ /####################################\
 .######################################.
 +######################################+
 o######################################o
 o######################################o
 +######################################+
 .######################################.
- /####################################/
+ \####################################/
   +##################################+
-   /################################/
+   \################################/
     .o############################o.
       -+########################+-
         `:+##################+:`
-            .-/+oo####oo+/-.</pre>
+            .-\+oo####oo+/-.</pre>
 			<div class="ml-5 flex flex-col items-center justify-center">
 				<ul>
-					<li>Przemysław Barcicki</li>
+					<li><span class="font-bold">Przemysław Barcicki</span></li>
 					<li>------------</li>
 					<li><span class="r">Country:</span> <span class="font-bold">Poland</span></li>
 					<li><span class="r">City:</span> <span class="font-bold">Wrocław</span></li>
-					<li><span class="r">Uptime:</span> <span class="font-bold">{years} years, {months}</span></li>
+					<li><span class="r">Uptime:</span> <span class="font-bold">{uptime}</span></li>
 					<li><span class="r">Trade:</span> <span class="font-bold">Information Technology</span></li>
-					<li><span class="r">Specialization:</span> <span class="font-bold">Web Applications</span></li>
+					<li><span class="r">Specialization:</span> <span class="font-bold">Linux, Infrastructure</span></li>
 					<li><span class="r">Education:</span> <span class="font-bold">MSc's, BSc's, Technical</span></li>
-					<li><span class="r">Languages:</span> <span class="font-bold">Python, TypeScript, Java</span></li>
-					<li><span class="r">Dream job:</span> <span class="font-bold">Backend DevOps</span></li>
-					<!-- TODO: change this -->
-					<li><span class="r">Status:</span> <span class="font-bold">Unemployed</span></li>
+					<li><span class="r">Languages:</span> <span class="font-bold">Python, TypeScript, Go</span></li>
+					<li>
+						<span class="r">Status:</span>
+						<span class="font-bold">Software Engineer</span>
+					</li>
+					<li>
+						<span class="r">Employer:</span>
+						<span class="font-bold"><a class="underline" href="https://antmicro.com/">Antmicro</a> for {employed}</span>
+					</li>
 				</ul>
 				<div class="break-on-7 w-full pt-2">
 					{#each stripes as color}
@@ -86,7 +112,7 @@ o######################################o
 <!-- TODO: scale font to always fit width -->
 <style>
 	pre {
-		line-height: normal;
+		line-height: 1.25em;
 		font-weight: 900;
 		user-select: none;
 	}
@@ -108,10 +134,18 @@ o######################################o
 	}
 
 	.icon {
-		background: url('https://avatars.githubusercontent.com/u/42300497?s=512&v=4') no-repeat;
+		background: url('https://gravatar.com/avatar/02cea60e4f4cf5091ad1bdcd15febec96f9645deda271444e77173844a08d456?size=512px')
+			no-repeat;
+		color: transparent;
 		background-clip: text;
+		background-position: center;
 		background-size: cover;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
+		border-radius: 50%;
+	}
+
+	.icon:hover {
+		background-clip: unset;
 	}
 </style>
