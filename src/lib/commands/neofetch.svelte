@@ -4,25 +4,34 @@
 		if (value == 1) return `1 ${singularUnit}`;
 		return `${value} ${singularUnit}s`;
 	};
-	const formatTime = function (date: Date): string {
-		const years = getTimeUnit('year', date.getFullYear() - 1970);
-		const months = getTimeUnit('month', date.getMonth());
-		if (years && months) {
-			return `${years}, ${months}`;
-		} else if (years) {
-			return years;
+
+	const getTimeDelta = function (from: Date, to: Date): { months: number; years: number } {
+		const months = to.getMonth() - from.getMonth() + 12 * (to.getFullYear() - from.getFullYear());
+		console.log(to, from);
+		return { months: months % 12, years: Math.floor(months / 12) };
+	};
+
+	const formatTime = function (from: Date, to: Date): string {
+		const { years, months } = getTimeDelta(from, to);
+
+		const formattedYear = getTimeUnit('year', years);
+		const formattedMonth = getTimeUnit('month', months);
+
+		if (formattedYear && formattedMonth) {
+			return `${formattedYear}, ${formattedMonth}`;
+		} else if (formattedYear) {
+			return formattedYear;
 		} else {
-			return months;
+			return formattedMonth;
 		}
 	};
 
-	const now = new Date().valueOf();
+	const now = new Date();
+	const rawUptime = new Date(2000, 10, 27);
+	const rawEmployed = new Date(2025, 11, 1);
 
-	const rawUptime = new Date(now - new Date(2000, 11, 27).valueOf());
-	const rawEmployed = new Date(now - new Date(2025, 12, 1).valueOf());
-
-	const uptime = formatTime(rawUptime);
-	const employed = formatTime(rawEmployed);
+	const uptime = formatTime(rawUptime, now);
+	const employed = formatTime(rawEmployed, now);
 
 	const stripes = [
 		// first row
